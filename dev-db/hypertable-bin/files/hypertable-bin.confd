@@ -1,0 +1,3 @@
+# The required argument <fs> indicates which filesystem broker to start.  Valid
+# values include "local", "hadoop", "ceph", "mapr", and "qfs".
+FS="local"

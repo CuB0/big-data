@@ -1,0 +1,24 @@
+#!/sbin/runscript
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License, v2
+# $Id$
+
+depend() {
+	need net
+}
+
+start() {
+	mkdir -p /var/run/hypertable/run
+	ln -s /var/run/hypertable/run /var/lib/hypertable/run
+	ebegin "Starting ${SVCNAME}"
+		start-stop-daemon --user hyper --exec /opt/${SVCNAME}/current/bin/ht-start-all-servers.sh ${FS}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping ${SVCNAME}"
+		start-stop-daemon --user hyper --exec /opt/${SVCNAME}/current/bin/ht-stop-servers.sh
+	eend ${retval}
+}
+
+# vim: ts=4
